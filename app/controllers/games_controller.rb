@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  
+
   def index
-    @game = Game.all
+    @games = Game.all
     #code
   end
 
