@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--  Все що в середині тегу з атрибутом ng-app може бути оброблено задопомогою angular -->
 <html ng-app="GameTracker">
   <head>
     <title>GameTracker</title>
@@ -6,20 +7,25 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-    <!-- Latest compiled and minified CSS -->
+    <!-- Підключаємо стилі bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
+    <!-- Підключаємо тему bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <!-- Підключаємо angular, він має бути завантажений перед нашими користувацькими скриптами -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" ></script>
 
+    <!-- Підключаємо користувацькі скрипти -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <!-- Підключаємо js bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
 
   <body>
+
+    <!--  Цей div підпорядковується контролеру MainCtrl див файл main.js -->
     <div class="container" ng-controller="MainCtrl">
       <h3>Tracker</h3>
       <table class="table">
@@ -63,6 +69,9 @@
                 <th>Store</th>
               </tr>
             </thead>
+              <!-- games - це масив об'єктів які мають властивості (ключі name, store) -->
+              <!-- ng-repeat - цикл ангулар для шаблонів як each в erb -->
+              <!-- для кожної гри виводим рядок з коміркою  game.name та game.name -->
               <tr ng-repeat="game in games">
                 <td>{{game.name}}</td>
                 <td>{{game.store}}</td>
@@ -70,19 +79,27 @@
             </tbody>
           </table>
 
+          <!-- Ініціалізація форми -->
           <form class="form-inline" name="gameForm" ng-submit="createGame(gameForm)">
             <div class="form-group">
               <label>
                 <span>Name</span>
+                <!-- ng-model="game.name" - див рядок 33 main.js -->
+                <!-- required - обов'язкове поле -->
                 <input type="text" class="form-control" ng-model="game.name" name="name" placeholder="Please enter game name" required>
               </label>
             </div>
             <div class="form-group">
               <label>
                 <span>Store</span>
+                <!-- ng-model="game.store" - див рядок 33 main.js -->
+                <!-- required - обов'язкове поле -->
                 <input type="text" class="form-control" ng-model="game.store" name="store" placeholder="Please enter game store" required>
               </label>
             </div>
+
+            <!-- при натисканні кнопки відбувається виклдик методу createGame -->
+            <!-- якщо type="submit" і кнопка знаходиться у формі, то у формі відбудеться подія  submit -->
             <button type="submit" class="btn btn-primary" ng-disabled="gameForm.$invalid">Save</button>
           </form>
         </div>
